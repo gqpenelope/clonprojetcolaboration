@@ -328,12 +328,6 @@ with tab1:
         list(ventanas.keys()),
         horizontal=True
     )
-
-    ventana_tiempo = st.radio(
-        "Selecciona una ventana de tiempo:",
-        list(ventanas.keys()),
-        horizontal=True
-    )
     
     # Filtrar datos según la ventana seleccionada
     start_date, end_date = ventanas[ventana_tiempo]
