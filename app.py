@@ -255,9 +255,11 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
+    # CSS personalizado para centrar la ventana y estilizar los botones
     st.markdown(
         """
         <style>
+        /* Centrar el título */
         .stRadio > label {
             display: block;
             text-align: center;
@@ -266,11 +268,14 @@ with tab1:
             font-weight: bold;
             margin-bottom: 10px;
         }
+        
+        /* Centrar los botones */
         div[role="radiogroup"] {
             display: flex;
             justify-content: center;
             gap: 10px;
         }
+        
         /* Botones sin seleccionar */
         div[role="radiogroup"] > label {
             background-color: white;
@@ -283,27 +288,32 @@ with tab1:
             transition: all 0.3s ease;
             text-align: center;
         }
+    
         /* Texto y contenido del botón */
         div[role="radiogroup"] > label > div {
             color: black; /* Asegurar texto negro */
         }
+    
         /* Botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] {
-            background-color: #FFB703; /* Color amarillo */
-            color: black;
+            background-color: #FFB703; /* Amarillo */
+            color: black; /* Texto negro */
             border: 2px solid #FFB703;
             font-weight: bold;
         }
+    
         /* Texto y contenido del botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] > div {
             color: black; /* Texto negro */
         }
+    
         /* Hover sobre botones no seleccionados */
         div[role="radiogroup"] > label:hover {
-            background-color: #FFE5A1;
-            color: black;
+            background-color: #FFE5A1; /* Amarillo claro */
+            color: black; /* Texto negro */
         }
-          /* Hover sobre el texto y punto del botón */
+    
+        /* Hover sobre el texto y punto del botón */
         div[role="radiogroup"] > label:hover > div {
             color: black; /* Texto negro */
         }
@@ -311,6 +321,14 @@ with tab1:
         """,
         unsafe_allow_html=True
     )
+    
+    # Implementación del radio con ventanas de tiempo
+    ventana_tiempo = st.radio(
+        "Selecciona una ventana de tiempo:",
+        list(ventanas.keys()),
+        horizontal=True
+    )
+
     ventana_tiempo = st.radio(
         "Selecciona una ventana de tiempo:",
         list(ventanas.keys()),
