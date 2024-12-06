@@ -255,6 +255,45 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
+    st.markdown(
+        """
+        <style>
+        .stRadio > label {
+            display: block;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        div[role="radiogroup"] {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        div[role="radiogroup"] > label {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        div[role="radiogroup"] > label[data-selected="true"] {
+            background-color: #FFB703; /* Color amarillo */
+            color: black;
+            border: 2px solid #FFB703;
+            font-weight: bold;
+        }
+        div[role="radiogroup"] > label:hover {
+            background-color: #FFE5A1;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     ventana_tiempo = st.radio(
         "Selecciona una ventana de tiempo:",
         list(ventanas.keys()),
