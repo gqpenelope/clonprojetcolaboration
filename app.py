@@ -936,10 +936,6 @@ with tab3:
         default=restricc[:1],  # Seleccionar una opción por defecto (la primera)
         help="Selecciona las restricciones que deseas analizar"
     )
-    
-    # Mostrar las restricciones seleccionadas
-    if restricc_seleccionadas:
-        st.write("Restricciones seleccionadas:", restricc_seleccionadas)
 
     st.markdown(
         """
