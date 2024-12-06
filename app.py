@@ -157,7 +157,7 @@ def var_cvar(returns, confianza=0.95):
     return VaR, CVaR
 
 # Función para calcular métricas
-def calcular_metricas(rendimientos):
+def calcular_metricas(rendimientos, rf_rate=0.02):
     # Métricas básicas
     media = rendimientos.mean() * 252  # Rendimiento anualizado
     volatilidad = rendimientos.std() * np.sqrt(252)  # Volatilidad anualizada
