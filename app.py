@@ -914,16 +914,28 @@ with tab3:
 
     # Mostrar estadísticas
     # st.markdown("### Métricas de Backtesting")
-    restricciones = ['sharpe_ratio','min_vol','min_vol_ren10','pesos_igual','s&p']
 
-    colores_restric = {
-    'sharpe_ratio': '#FB8500',
-    'min_vol': '#2CA58D',
-    'min_vol_ren10': '#84BC9C',
-    'pesos_igual': '#F46197',
-    's&p': '#FFB703'
+    restricciones = {
+    "Máximo Sharpe": '#FB8500',
+    "Mínima Volatilidad": '#2CA58D',
+    "Mínima Volatilidad (Rendimiento 10%)": '#84BC9C',
+    "Pesos Iguales": '#F46197',
+    "S&P 500": '#FFB703'
     }
     
+    restricc = list(colores_restric.keys())
+    
+    # Texto centrado con tamaño más pequeño
+    st.markdown('<div class="centered-small">Métricas de Backtesting</div>', unsafe_allow_html=True) 
+
+    # Slider de selección múltiple para restricciones
+    restricc_seleccionadas = st.multiselect(
+        "Selecciona una o varias restricciones para análisis:",
+        opciones=restricc,
+        default=restricciones[:1],  # Seleccionar una opción por defecto
+        help="Selecciona las restricciones que deseas analizar"
+    )
+
     st.markdown(
         """
         <style>
@@ -936,8 +948,6 @@ with tab3:
         """,
         unsafe_allow_html=True,
     )
-    # Texto centrado con tamaño más pequeño
-    st.markdown('<div class="centered-small">Métricas de Backtesting</div>', unsafe_allow_html=True)
 
     # HTML para las métricas personalizadas
     def render_metric(label, value, background_color, border_left_color, text_color="white"):
