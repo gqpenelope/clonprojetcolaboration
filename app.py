@@ -781,7 +781,7 @@ with tab3:
     bt_iguales, stats_iguales = backtesting_portafolio(rendimientos_backtesting, pesos_iguales, inicio, fin)
     bt_sp500, stats_sp500 = backtesting_portafolio(rendimientos_backtesting[["SPY"]], [1.0], inicio, fin)
 
-    restricciones:['sharpe_ratio','min_vol','min_vol_ren10','pesos_igual','s&p']
+    restricciones = ['sharpe_ratio','min_vol','min_vol_ren10','pesos_igual','s&p']
 
     colores_restric = {
     'sharpe_ratio': '#FB8500',
