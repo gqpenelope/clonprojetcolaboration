@@ -258,14 +258,6 @@ with tab1:
     st.markdown(
         """
         <style>
-        .stRadio > label {
-            display: block;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
         div[role="radiogroup"] {
             display: flex;
             justify-content: center;
@@ -283,6 +275,10 @@ with tab1:
             transition: all 0.3s ease;
             text-align: center;
         }
+        /* Texto y contenido del botón */
+        div[role="radiogroup"] > label > div {
+            color: black; /* Asegurar texto negro */
+        }
         /* Botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] {
             background-color: #FFB703; /* Color amarillo */
@@ -290,10 +286,18 @@ with tab1:
             border: 2px solid #FFB703;
             font-weight: bold;
         }
+        /* Texto y contenido del botón seleccionado */
+        div[role="radiogroup"] > label[data-selected="true"] > div {
+            color: black; /* Texto negro */
+        }
         /* Hover sobre botones no seleccionados */
         div[role="radiogroup"] > label:hover {
             background-color: #FFE5A1;
             color: black;
+        }
+          /* Hover sobre el texto y punto del botón */
+        div[role="radiogroup"] > label:hover > div {
+            color: black; /* Texto negro */
         }
         </style>
         """,
