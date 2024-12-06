@@ -266,9 +266,6 @@ with tab1:
     # Obtener datos y rendimientos para cada ETF
     datos = obtener_datos(etfs, start_date, end_date)
     rendimientos_indiv = datos.pct_change().dropna()
-    # Calcular métricas para cada ETF
-    metricas = {etf: calcular_metricas(rendimientos_indiv[etf]) for etf in etfs}
-    metricas_df = pd.DataFrame(metricas).T  # Convertir a DataFrame para análisis tabular
 
     # Selección del ETF para análisis
     etf_seleccionado = st.selectbox("Selecciona un ETF para análisis:", options=etfs)
@@ -383,6 +380,7 @@ with tab1:
             """,
             unsafe_allow_html=True
         )
+        # Calcular métricas para cada ETF
         metricas = calcular_metricas(rendimientos_indiv[etf_seleccionado])
 
         st.columns(3)
@@ -418,7 +416,7 @@ with tab1:
     with col1:
         # Gráfica de precios normalizados
         st.markdown('<div class="titulo-columnas">Serie de Tiempo de Precios Normalizados</div>', unsafe_allow_html=True)
-        precios_normalizados = datos_portafolios[etf_seleccionado] / datos_portafolios[etf_seleccionado].iloc[0] * 100
+        precios_normalizados = datos[etf_seleccionado] / datos[etf_seleccionado].iloc[0] * 100
         fig_precios = go.Figure(go.Scatter(
             x=precios_normalizados.index,
             y=precios_normalizados,
@@ -443,8 +441,8 @@ with tab1:
     with col2:
         # Histograma de rendimientos
         st.markdown('<div class="titulo-columnas">Histograma de Rendimientos con VaR y CVaR</div>', unsafe_allow_html=True) 
-        var_95, cvar_95 = var_cvar(rendimientos[etf_seleccionado], confianza=0.95)
-        histograma = histog_distr(rendimientos[etf_seleccionado], var_95, cvar_95, f"Distribución de rendimientos para {etf_seleccionado}")
+        var_95, cvar_95 = var_cvar(rendimientos_indiv[etf_seleccionado], confianza=0.95)
+        histograma = histog_distr(rendimientos_indiv[etf_seleccionado], var_95, cvar_95, f"Distribución de rendimientos para {etf_seleccionado}")
         st.plotly_chart(histograma)
 
 
