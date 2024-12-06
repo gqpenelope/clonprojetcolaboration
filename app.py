@@ -262,13 +262,11 @@ with tab1:
         .stRadio > label {
             display: block;
             text-align: center;
-            color: black !important; /* Forzar el color negro */
+            color: black !important;
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-    
-        /* Centrar los botones */
         div[role="radiogroup"] {
             display: flex;
             justify-content: center;
@@ -277,8 +275,8 @@ with tab1:
     
         /* Botones sin seleccionar */
         div[role="radiogroup"] > label {
-            background-color: white !important;
-            color: #1D1E2C !important; /* Asegurar texto visible */
+            background-color: #F46197;
+            color: #1D1E2C !important;
             border: 2px solid black;
             border-radius: 10px;
             padding: 8px 16px;
@@ -290,31 +288,31 @@ with tab1:
     
         /* Texto y contenido del botón */
         div[role="radiogroup"] > label > div {
-            color: #1D1E2C !important; /* Forzar color del texto */
+            color: #1D1E2C !important;
         }
     
         /* Botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] {
-            background-color: #FFB703 !important; /* Color de fondo amarillo */
-            color: #1D1E2C !important; /* Texto visible */
+            background-color: #FFB703 !important;
+            color: #1D1E2C !important;
             border: 2px solid #FFB703;
             font-weight: bold;
         }
     
         /* Texto y contenido del botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] > div {
-            color: #1D1E2C !important; /* Texto negro */
+            color: #1D1E2C !important;
         }
     
         /* Hover sobre botones no seleccionados */
         div[role="radiogroup"] > label:hover {
             background-color: #FFE5A1 !important; /* Color de fondo en hover */
-            color: #1D1E2C !important; /* Texto negro */
+            color: #1D1E2C !important;
         }
     
         /* Hover sobre el texto y punto del botón */
         div[role="radiogroup"] > label:hover > div {
-            color: #1D1E2C !important; /* Texto negro */
+            color: #1D1E2C !important;
         }
         </style>
         """,
