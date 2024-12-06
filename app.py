@@ -98,6 +98,10 @@ ventanas = {
     "2021-2023": ("2021-01-01", "2023-12-31")
 }
 
+# Estado para la selección de ventana
+if "ventana_seleccionada" not in st.session_state:
+    st.session_state["ventana_seleccionada"] = "2010-2023"
+
 # Tabs de la aplicación
 st.markdown(
     """
