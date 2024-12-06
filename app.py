@@ -899,7 +899,10 @@ with tab3:
         xaxis=dict(
             title="Fecha",
             titlefont=dict(color='white'),
-            tickfont=dict(color='white')
+            tickfont=dict(color='white'),
+            showgrid=False,
+            linecolor='white',
+            tickcolor='white'
         ),
         yaxis=dict(
             title="Rendimiento Acumulado",
