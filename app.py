@@ -741,17 +741,11 @@ with tab3:
             title="Fecha",
             titlefont=dict(color='white'),
             tickfont=dict(color='white'),
-            showgrid=False,
-            linecolor='white',
-            tickcolor='white'
         ),
         yaxis=dict(
             title="Precio Normalizado",
             titlefont=dict(color='white'),
             tickfont=dict(color='white'),
-            showgrid=False,
-            linecolor='white',
-            tickcolor='white'
         ),
         hovermode="x unified",
         plot_bgcolor='#1D1E2C',
@@ -907,6 +901,7 @@ with tab3:
             titlefont=dict(color='white'),
             tickfont=dict(color='white')
         ),
+        hovermode="x unified",
         plot_bgcolor='#1D1E2C',
         paper_bgcolor='#1D1E2C',
         font=dict(color='white'),
