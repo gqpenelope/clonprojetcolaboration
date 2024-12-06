@@ -261,7 +261,7 @@ with tab1:
         .stRadio > label {
             display: block;
             text-align: center;
-            color: black;
+            color: white;
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 10px;
@@ -271,6 +271,7 @@ with tab1:
             justify-content: center;
             gap: 10px;
         }
+        /* Botones sin seleccionar */
         div[role="radiogroup"] > label {
             background-color: white;
             color: black;
@@ -280,15 +281,19 @@ with tab1:
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-align: center;
         }
+        /* Botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] {
             background-color: #FFB703; /* Color amarillo */
             color: black;
             border: 2px solid #FFB703;
             font-weight: bold;
         }
+        /* Hover sobre botones no seleccionados */
         div[role="radiogroup"] > label:hover {
             background-color: #FFE5A1;
+            color: black;
         }
         </style>
         """,
