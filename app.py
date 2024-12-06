@@ -792,10 +792,10 @@ with tab3:
     }
 
     fig = go.Figure()
-    for restricciones in restricciones:
+    for restriccion in restricciones:
         fig.add_trace(go.Scatter(
             mode='lines', 
-            line=dict(color=colores_restric[restricciones])
+            line=dict(color=colores_restric[restriccion])
         ))
 
     col1,col2 = st.columns(2)
