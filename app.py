@@ -901,8 +901,6 @@ with tab3:
             titlefont=dict(color='white'),
             tickfont=dict(color='white'),
             showgrid=False,
-            linecolor='white',
-            tickcolor='white'
         ),
         yaxis=dict(
             title="Rendimiento Acumulado",
