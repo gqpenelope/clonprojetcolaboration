@@ -258,6 +258,14 @@ with tab1:
     st.markdown(
         """
         <style>
+        .stRadio > label {
+            display: block;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
         div[role="radiogroup"] {
             display: flex;
             justify-content: center;
