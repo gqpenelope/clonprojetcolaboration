@@ -923,7 +923,7 @@ with tab3:
     "S&P 500": '#FFB703'
     }
     
-    restricc = list(colores_restric.keys())
+    restricc = list(restricciones.keys())
     
     # Texto centrado con tamaño más pequeño
     st.markdown('<div class="centered-small">Métricas de Backtesting</div>', unsafe_allow_html=True) 
