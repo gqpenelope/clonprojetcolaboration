@@ -97,33 +97,6 @@ ventanas = {
     "2010-2020": ("2010-01-01", "2020-12-31"),
     "2021-2023": ("2021-01-01", "2023-12-31")
 }
-# Estado para la selección de ventana
-if "ventana_seleccionada" not in st.session_state:
-    st.session_state["ventana_seleccionada"] = "2010-2023"
-    
-# Menú lateral para seleccionar ventana de tiempo
-# with st.sidebar:
-    # selected = option_menu(
-    #     menu_title="Ventana",
-    #     options=list(ventanas.keys()),
-    #     icons=["calendar", "calendar-range", "calendar3"],
-    #     menu_icon="gear",
-    #     default_index=0,
-    #     styles={
-    #         "container": {"padding": "5px", "background-color": "#1D1E2C"},
-    #         "icon": {"color": "white", "font-size": "25px"},
-    #         "nav-link": {
-    #             "font-size": "16px",
-    #             "text-align": "left",
-    #             "margin": "0px",
-    #             "color": "white",
-    #             "background-color": "#1D1E2C",
-    #         },
-    #         "nav-link-selected": {"background-color": "#FFB703", "color": "white"},
-    #     },
-    # )
-
-#start_date, end_date = ventanas[selected]
 
 # Tabs de la aplicación
 st.markdown(
@@ -299,12 +272,9 @@ with tab1:
     st.session_state["ventana_seleccionada"] = ventana_actual
     start_date, end_date = ventanas[ventana_actual]
     st.info(f"Ventana de tiempo seleccionada: {ventana_actual} ({start_date} a {end_date})")
-
     
     # Selección del ETF para análisis
     etf_seleccionado = st.selectbox("Selecciona un ETF para análisis:", options=etfs)
-    # Obtener datos
-    datos = obtener_datos(etfs, start_date, end_date)
 
     if etf_seleccionado not in datos_portafolios.columns or datos_portafolios[etf_seleccionado].dropna().empty:
         st.error(f"No hay datos disponibles para {etf_seleccionado} en la ventana seleccionada.")
