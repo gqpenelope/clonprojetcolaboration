@@ -295,26 +295,26 @@ with tab1:
     
         /* Botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] {
-            background-color: #FFB703;
-            color: #1D1E2C;
+            background-color: #FFB703 !important;
+            color: #1D1E2C !important;
             border: 2px solid #FFB703;
             font-weight: bold;
         }
     
         /* Texto y contenido del botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] > div {
-            color: #1D1E2C;
+            color: #1D1E2C !important;
         }
     
         /* Hover sobre botones no seleccionados */
         div[role="radiogroup"] > label:hover {
-            background-color: #FFE5A1; /* Amarillo claro */
-            color: #1D1E2C; /*!important */
+            background-color: #FFE5A1;
+            color: #1D1E2C !important;
         }
     
         /* Hover sobre el texto y punto del botón */
         div[role="radiogroup"] > label:hover > div {
-            color: #1D1E2C;
+            color: #1D1E2C !important;
         }
         </style>
         """,
