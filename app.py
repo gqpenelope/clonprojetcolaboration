@@ -361,25 +361,6 @@ with tab1:
     datos = obtener_datos(etfs, start_date, end_date)
     rendimientos_indiv = datos.pct_change().dropna()
 
-    st.markdown(
-        """
-        <style>
-        /* Botón seleccionado */
-        div[role="radiogroup"] > label[data-selected="true"] {
-            background-color: #FFB703; /* Color amarillo */
-            color: black;
-            border: 2px solid #FFB703;
-            font-weight: bold;
-        }
-        /* Hover sobre botones no seleccionados */
-        div[role="radiogroup"] > label:hover {
-            background-color: #FFE5A1;
-            color: black;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
     # Selección del ETF para análisis
     etf_seleccionado = st.selectbox("Selecciona un ETF para análisis:", options=etfs)
 
@@ -720,28 +701,14 @@ with tab3:
         unsafe_allow_html=True,
     )
 
-    # Comparación de Precios Normalizados
-    st.markdown(
-        """
-        <style>
-        .centered {
-            text-align: center;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-    
-    # Subheader centrado
-    st.markdown('<h3 class="centered">Precios Normalizados</h3>', unsafe_allow_html=True)
     precios_normalizados = datos_backtesting / datos_backtesting.iloc[0] * 100
     
     colores_etfs = {
-    'LQD': '#73d2de',
-    'EMB': '#d81159',
-    'SPY': '#fbb13c',
-    'EWZ': '#8f2d56',
-    'IAU': '#218380'
+    'LQD': '#FB8500',
+    'EMB': '#2CA58D',
+    'SPY': '#84BC9C',
+    'EWZ': '#F46197',
+    'IAU': '#FFB703'
     }
 
     fig = go.Figure()
@@ -754,52 +721,10 @@ with tab3:
             line=dict(color=colores_etfs[etf])
         ))
 
-    fig.update_layout(
-        title=dict(text="Comparación de Precios Normalizados", font=dict(color='white')),
-        xaxis=dict(
-            title="Fecha",
-            titlefont=dict(color='white'),
-            tickfont=dict(color='white'),
-            showgrid=False,
-            linecolor='white',
-            tickcolor='white'
-        ),
-        yaxis=dict(
-            title="Precio Normalizado",
-            titlefont=dict(color='white'),
-            tickfont=dict(color='white'),
-            showgrid=False,
-            linecolor='white',
-            tickcolor='white'
-        ),
-        hovermode="x unified",
-        plot_bgcolor='#1D1E2C',
-        paper_bgcolor='#1D1E2C',
-        font=dict(color='white'),
-        legend=dict(
-            font=dict(color='white'),
-            bgcolor='#1D1E2C'
-        )
-    )
-    st.plotly_chart(fig)
-
     # Backtesting
 
     # Calcular rendimientos diarios Backtesting
     rendimientos_backtesting = datos_backtesting.pct_change().dropna()
-
-    st.markdown(
-        """
-        <style>
-        .centered {
-            text-align: center;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-    # Subheader centrado
-    st.markdown('<h3 class="centered">Backtesting</h3>', unsafe_allow_html=True)
 
     def backtesting_portafolio(rendimientos, pesos, inicio, fin, nivel_var=0.05):
         rendimientos_bt = rendimientos.loc[inicio:fin]
@@ -856,84 +781,126 @@ with tab3:
     bt_iguales, stats_iguales = backtesting_portafolio(rendimientos_backtesting, pesos_iguales, inicio, fin)
     bt_sp500, stats_sp500 = backtesting_portafolio(rendimientos_backtesting[["SPY"]], [1.0], inicio, fin)
 
-    # Gráfica de Rendimiento Acumulado
+    restricciones:['min_vol','sharpe_ratio','min_vol_ren10','pesos_igual','s&p']
+
+    colores_restric = {
+    'sharpe_ratio': '#FB8500',
+    'min_vol': '#2CA58D',
+    'min_vol_ren10': '#84BC9C',
+    'pesos_igual': '#F46197',
+    's&p': '#FFB703'
+    }
+
+    fig = go.Figure()
+    for etf in etfs:
+        fig.add_trace(go.Scatter(
+            mode='lines', 
+            line=dict(color=colores_rest[restricciones])
+        ))
+
+    col1,col2 = st.columns(2)
     st.markdown(
         """
         <style>
-        .centered-small {
+        .titulo-columnas {
             text-align: center;
-            font-size: 18px; /* Ajusta el tamaño del texto */
-            font-size: 20px; 
+            font-size: 20px;
             font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            min-height: 30px; 
+        .columna {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
         </style>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
-
-    # Texto centrado con tamaño más pequeño
-    st.markdown('<div class="centered-small">Rendimiento Acumulado</div>', unsafe_allow_html=True)
-
-
-
-
-    fig_bt = go.Figure()
-    fig_bt.add_trace(go.Scatter(
-        x=bt_sharpe.index,
-        y=bt_sharpe,
-        mode='lines',
-        name="Máximo Sharpe",
-        line=dict(color='#9df7e5')
-    ))
-    fig_bt.add_trace(go.Scatter(
-        x=bt_volatilidad.index,
-        y=bt_volatilidad,
-        mode='lines',
-        name="Mínima Volatilidad",
-        line=dict(color='#d90368')
-    ))
-    fig_bt.add_trace(go.Scatter(
-        x=bt_rendimiento.index,
-        y=bt_rendimiento,
-        mode='lines',
-        name="Mínima Volatilidad (Rendimiento 10%)",
-        line=dict(color='#5bc8af')
-    ))
-    fig_bt.add_trace(go.Scatter(
-        x=bt_iguales.index,
-        y=bt_iguales,
-        mode='lines',
-        name="Pesos Iguales",
-        line=dict(color='#af4d98')
-    ))
-    fig_bt.add_trace(go.Scatter(
-        x=bt_sp500.index,
-        y=bt_sp500,
-        mode='lines',
-        name="S&P 500",
-        line=dict(color='#FF6500')
-    ))
-    fig_bt.update_layout(
-        title=dict(text="Rendimiento Acumulado", font=dict(color='white')),
-        xaxis=dict(
-            title="Fecha",
-            titlefont=dict(color='white'),
-            tickfont=dict(color='white')
-        ),
-        yaxis=dict(
-            title="Rendimiento Acumulado",
-            titlefont=dict(color='white'),
-            tickfont=dict(color='white')
-        ),
-        plot_bgcolor='#1D1E2C',
-        paper_bgcolor='#1D1E2C',
-        font=dict(color='white'),
-        legend=dict(
+    
+    with col1: 
+        st.markdown('<div class="titulo-columnas">Precios Normalizados</div>', unsafe_allow_html=True)
+        fig.update_layout(
+            title=dict(text="Comparación de Precios Normalizados", font=dict(color='white')),
+            xaxis=dict(
+                title="Fecha",
+                titlefont=dict(color='white'),
+                tickfont=dict(color='white'),
+                showgrid=False,
+                linecolor='white',
+                tickcolor='white'
+            ),
+            yaxis=dict(
+                title="Precio Normalizado",
+                titlefont=dict(color='white'),
+                tickfont=dict(color='white'),
+                showgrid=False,
+                linecolor='white',
+                tickcolor='white'
+            ),
+            hovermode="x unified",
+            plot_bgcolor='#1D1E2C',
+            paper_bgcolor='#1D1E2C',
             font=dict(color='white'),
-            bgcolor='#1D1E2C'
+            legend=dict(
+                font=dict(color='white'),
+                bgcolor='#1D1E2C'
+            )
         )
-    )
-    st.plotly_chart(fig_bt)
+        st.plotly_chart(fig)
+
+    with col2: 
+        st.markdown('<div class="titulo-columnas">Backtesting</div>', unsafe_allow_html=True)
+    
+        fig_bt = go.Figure()
+        fig_bt.add_trace(go.Scatter(
+            x=bt_sharpe.index,
+            y=bt_sharpe,
+            name="Máximo Sharpe",
+        ))
+        fig_bt.add_trace(go.Scatter(
+            x=bt_volatilidad.index,
+            y=bt_volatilidad,
+            name="Mínima Volatilidad",
+        ))
+        fig_bt.add_trace(go.Scatter(
+            x=bt_rendimiento.index,
+            y=bt_rendimiento,
+            name="Mínima Volatilidad (Rendimiento 10%)",
+        ))
+        fig_bt.add_trace(go.Scatter(
+            x=bt_iguales.index,
+            y=bt_iguales,
+            name="Pesos Iguales",
+        ))
+        fig_bt.add_trace(go.Scatter(
+            x=bt_sp500.index,
+            y=bt_sp500,
+            name="S&P 500",
+        ))
+        fig_bt.update_layout(
+            title=dict(text="Rendimiento Acumulado", font=dict(color='white')),
+            xaxis=dict(
+                title="Fecha",
+                titlefont=dict(color='white'),
+                tickfont=dict(color='white')
+            ),
+            yaxis=dict(
+                title="Rendimiento Acumulado",
+                titlefont=dict(color='white'),
+                tickfont=dict(color='white')
+            ),
+            plot_bgcolor='#1D1E2C',
+            paper_bgcolor='#1D1E2C',
+            font=dict(color='white'),
+            legend=dict(
+                font=dict(color='white'),
+                bgcolor='#1D1E2C'
+            )
+        )
+        st.plotly_chart(fig_bt)
 
     # Mostrar estadísticas
     # st.markdown("### Métricas de Backtesting")
