@@ -76,8 +76,8 @@ descripciones_etfs = {
         "paises": "Brasil",
         "estilo": "Blend (Growth y Value)",
         "costos": "Comisión de administración: 0.58%",
-        "beta": "",
-        "duracion": ""
+        "beta": "0.90",
+        "duracion": "NA"
     },
     "IAU": {
         "nombre": "iShares Gold Trust",
@@ -97,6 +97,14 @@ ventanas = {
     "2010-2020": ("2010-01-01", "2020-12-31"),
     "2021-2023": ("2021-01-01", "2023-12-31")
 }
+ventana_tiempo = st.radio(
+    "Selecciona una ventana de tiempo:",
+    list(ventanas.keys()),
+    horizontal=True
+)
+
+# Filtrar datos según la ventana seleccionada
+start_date, end_date = ventanas[ventana_tiempo]
 
 # Tabs de la aplicación
 st.markdown(
@@ -127,8 +135,10 @@ def obtener_tipo_cambio(start_date, end_date):
     tipo_cambio = yf.download('USDMXN=X', start=start_date, end=end_date)['Adj Close']
     return tipo_cambio
 
-# Obtener datos
-# datos = obtener_datos(etfs, start_date, end_date)
+# Obtener datos y rendimientos para cada ETF
+datos = obtener_datos(etfs, start_date, end_date)
+rendimientos_indiv = datos.pct_change().dropna()
+
 # tipo_cambio = obtener_tipo_cambio(start_date, end_date)
 
 datos_portafolios = obtener_datos(etfs, "2010-01-01", "2020-12-31")
@@ -139,6 +149,7 @@ tipo_cambio_backtesting = obtener_tipo_cambio("2021-01-01", "2023-12-31")
 
 # Calcular rendimientos diarios
 rendimientos = datos_portafolios.pct_change().dropna()
+
 # Función para calcular VaR y CVaR
 def var_cvar(returns, confianza=0.95):
     VaR = returns.quantile(1 - confianza)
@@ -146,7 +157,7 @@ def var_cvar(returns, confianza=0.95):
     return VaR, CVaR
 
 # Función para calcular métricas
-def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
+def calcular_metricas(rendimientos):
     # Métricas básicas
     media = rendimientos.mean() * 252  # Rendimiento anualizado
     volatilidad = rendimientos.std() * np.sqrt(252)  # Volatilidad anualizada
@@ -180,7 +191,7 @@ def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
     }
 
 # Calcular métricas para cada ETF
-metricas = {etf: calcular_metricas(rendimientos[etf]) for etf in etfs}
+metricas = {etf: calcular_metricas(rendimientos_indiv[etf]) for etf in etfs}
 metricas_df = pd.DataFrame(metricas).T  # Convertir a DataFrame para análisis tabular
 # Función para crear el histograma con hover interactivo
 def histog_distr(returns, var_95, cvar_95, title):
@@ -259,18 +270,7 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
-
-    # Línea del tiempo (slider)
-    ventana_actual = st.select_slider(
-        "Selecciona una ventana de tiempo:",
-        options=list(ventanas.keys()),
-        value="2010-2023"
-    )
-
-    # Obtener las fechas correspondientes
-    start_date, end_date = ventanas[ventana_actual]
-    st.info(f"Ventana de tiempo seleccionada: {ventana_actual} ({start_date} a {end_date})")
-
+    
     # Selección del ETF para análisis
     etf_seleccionado = st.selectbox("Selecciona un ETF para análisis:", options=etfs)
     
