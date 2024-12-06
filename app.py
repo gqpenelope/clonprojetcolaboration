@@ -795,7 +795,7 @@ with tab3:
     for etf in etfs:
         fig.add_trace(go.Scatter(
             mode='lines', 
-            line=dict(color=colores_rest[restricciones])
+            line=dict(color=colores_restric[restricciones])
         ))
 
     col1,col2 = st.columns(2)
