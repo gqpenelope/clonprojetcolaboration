@@ -255,7 +255,6 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
-    # CSS personalizado para centrar la ventana y estilizar los botones
     st.markdown(
         """
         <style>
@@ -263,23 +262,23 @@ with tab1:
         .stRadio > label {
             display: block;
             text-align: center;
-            color: white;
+            color: black; /* Cambié a negro */
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-        
+    
         /* Centrar los botones */
         div[role="radiogroup"] {
             display: flex;
             justify-content: center;
             gap: 10px;
         }
-        
+    
         /* Botones sin seleccionar */
         div[role="radiogroup"] > label {
             background-color: white;
-            color: black;
+            color: black !important; /* Asegurar que el texto sea negro */
             border: 2px solid black;
             border-radius: 10px;
             padding: 8px 16px;
@@ -291,31 +290,31 @@ with tab1:
     
         /* Texto y contenido del botón */
         div[role="radiogroup"] > label > div {
-            color: black; /* Asegurar texto negro */
+            color: black !important; /* Forzar texto negro */
         }
     
         /* Botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] {
             background-color: #FFB703; /* Amarillo */
-            color: black; /* Texto negro */
+            color: black !important; /* Texto negro */
             border: 2px solid #FFB703;
             font-weight: bold;
         }
     
         /* Texto y contenido del botón seleccionado */
         div[role="radiogroup"] > label[data-selected="true"] > div {
-            color: black; /* Texto negro */
+            color: black !important; /* Texto negro */
         }
     
         /* Hover sobre botones no seleccionados */
         div[role="radiogroup"] > label:hover {
             background-color: #FFE5A1; /* Amarillo claro */
-            color: black; /* Texto negro */
+            color: black !important; /* Texto negro */
         }
     
         /* Hover sobre el texto y punto del botón */
         div[role="radiogroup"] > label:hover > div {
-            color: black; /* Texto negro */
+            color: black !important; /* Texto negro */
         }
         </style>
         """,
@@ -328,6 +327,7 @@ with tab1:
         list(ventanas.keys()),
         horizontal=True
     )
+
     
     # Filtrar datos según la ventana seleccionada
     start_date, end_date = ventanas[ventana_tiempo]
