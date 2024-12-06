@@ -315,7 +315,7 @@ with tab1:
     datos = obtener_datos(etfs, start_date, end_date)
     rendimientos_indiv = datos.pct_change().dropna()
 
-        st.markdown(
+    st.markdown(
         """
         <style>
         /* Botón seleccionado */
