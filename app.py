@@ -916,25 +916,30 @@ with tab3:
     # st.markdown("### Métricas de Backtesting")
 
     restricciones = {
-    "Máximo Sharpe": '#FB8500',
-    "Mínima Volatilidad": '#2CA58D',
-    "Mínima Volatilidad (Rendimiento 10%)": '#84BC9C',
-    "Pesos Iguales": '#F46197',
-    "S&P 500": '#FFB703'
+        "Máximo Sharpe": '#FB8500',
+        "Mínima Volatilidad": '#2CA58D',
+        "Mínima Volatilidad (Rendimiento 10%)": '#84BC9C',
+        "Pesos Iguales": '#F46197',
+        "S&P 500": '#FFB703'
     }
     
+    # Convertir las claves del diccionario en una lista
     restricc = list(restricciones.keys())
     
     # Texto centrado con tamaño más pequeño
-    st.markdown('<div class="centered-small">Métricas de Backtesting</div>', unsafe_allow_html=True) 
-
+    st.markdown('<div class="centered-small">Métricas de Backtesting</div>', unsafe_allow_html=True)
+    
     # Slider de selección múltiple para restricciones
     restricc_seleccionadas = st.multiselect(
         "Selecciona una o varias restricciones para análisis:",
-        opciones=restricc,
-        default=restricciones[:1],  # Seleccionar una opción por defecto
+        options=restricc,  # Usar la lista de claves
+        default=restricc[:1],  # Seleccionar una opción por defecto (la primera)
         help="Selecciona las restricciones que deseas analizar"
     )
+    
+    # Mostrar las restricciones seleccionadas
+    if restricc_seleccionadas:
+        st.write("Restricciones seleccionadas:", restricc_seleccionadas)
 
     st.markdown(
         """
